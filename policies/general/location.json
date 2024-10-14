@@ -1,0 +1,47 @@
+
+{
+    "properties": 
+        {
+            "displayName": "Allowed locations",
+            "policyType": "Custom",
+            "mode": "Indexed",
+            "description": "Allowed locations",
+            "metadata": {
+            "category": "mypolicy"
+            },
+            "parameters": {
+                "listOfAllowedLocations": {
+                        "type": "Array",
+                        "metadata": {
+                            "description": "Azure 지역",
+                            "strongType": "location",
+                            "displayName": "Allowed locations"
+                        },
+                        "defaultValue": [
+                            "koreacentral"
+                        ]
+                }
+            },
+            "policyRule": {
+                "if": {
+                    "allOf": [
+                        {
+                            "field": "location",
+                            "notIn": "[parameters('listOfAllowedLocations')]"
+                        },
+                        {
+                            "field": "location",
+                            "notEquals": "global"
+                        },
+                        {
+                            "field": "type",
+                            "notEquals": "Microsoft.AzureActiveDirectory/b2cDirectories"
+                        }
+                    ]
+                },
+                "then": {
+                    "effect": "deny"
+                }
+            }
+        }
+}
