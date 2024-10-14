@@ -5,7 +5,7 @@ terraform {
 }
 provider "azurerm" {
   features {
-    
+
   }
 }
 data "azurerm_subscription" "test" {}
@@ -17,19 +17,19 @@ module "definition" {
     for p in fileset(path.module, "./policies/general/*.json") :
     trimsuffix(basename(p), ".json") => pathexpand(p)
   }
-  policy_name         = each.key
-  file_path           = each.value
+  policy_name = each.key
+  file_path   = each.value
 }
 
 # 현재 구독에 정책 할당
 module "assign_definition" {
-  source            = "gettek/policy-as-code/azurerm//modules/def_assignment"
+  source = "gettek/policy-as-code/azurerm//modules/def_assignment"
   for_each = {
     for p in fileset(path.module, "./policies/general/*.json") :
     trimsuffix(basename(p), ".json") => pathexpand(p)
   }
-  definition        = module.definition[each.key]
-  assignment_name   = each.key
-  assignment_scope  = data.azurerm_subscription.test.id
+  definition             = module.definition[each.key]
+  assignment_name        = each.key
+  assignment_scope       = data.azurerm_subscription.test.id
   non_compliance_message = "test"
 }
