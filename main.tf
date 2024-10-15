@@ -14,7 +14,7 @@ data "azurerm_subscription" "test" {}
 module "definition" {
   source = "gettek/policy-as-code/azurerm//modules/definition"
   for_each = {
-    for p in fileset(path.module, "./policies/general/*.json") :
+    for p in fileset(path.module, "./sample-policy/*.json") :
     trimsuffix(basename(p), ".json") => pathexpand(p)
   }
   policy_name = each.key
@@ -25,7 +25,7 @@ module "definition" {
 module "assign_definition" {
   source = "gettek/policy-as-code/azurerm//modules/def_assignment"
   for_each = {
-    for p in fileset(path.module, "./policies/general/*.json") :
+    for p in fileset(path.module, "./sample-policy/*.json") :
     trimsuffix(basename(p), ".json") => pathexpand(p)
   }
   assignment_location = "koreacentral"
