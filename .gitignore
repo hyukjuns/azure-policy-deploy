@@ -1,3 +1,6 @@
+# JSON Policy Files
+**/policies/*
+
 # Local .terraform directories
 **/.terraform/*
 

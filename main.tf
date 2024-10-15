@@ -28,8 +28,8 @@ module "assign_definition" {
     for p in fileset(path.module, "./policies/general/*.json") :
     trimsuffix(basename(p), ".json") => pathexpand(p)
   }
-  definition             = module.definition[each.key]
-  assignment_name        = each.key
-  assignment_scope       = data.azurerm_subscription.test.id
-  non_compliance_message = "test"
+  assignment_location = "koreacentral"
+  definition          = module.definition[each.key]
+  assignment_name     = each.key
+  assignment_scope    = data.azurerm_subscription.test.id
 }

@@ -1,47 +1,45 @@
-
 {
-    "properties": 
-        {
-            "displayName": "Allowed locations",
-            "policyType": "Custom",
-            "mode": "Indexed",
-            "description": "Allowed locations",
-            "metadata": {
-            "category": "mypolicy"
-            },
-            "parameters": {
-                "listOfAllowedLocations": {
-                        "type": "Array",
-                        "metadata": {
-                            "description": "Azure 지역",
-                            "strongType": "location",
-                            "displayName": "Allowed locations"
-                        },
-                        "defaultValue": [
-                            "koreacentral"
-                        ]
-                }
-            },
-            "policyRule": {
-                "if": {
-                    "allOf": [
-                        {
-                            "field": "location",
-                            "notIn": "[parameters('listOfAllowedLocations')]"
-                        },
-                        {
-                            "field": "location",
-                            "notEquals": "global"
-                        },
-                        {
-                            "field": "type",
-                            "notEquals": "Microsoft.AzureActiveDirectory/b2cDirectories"
-                        }
+    "properties": {
+        "displayName": "Allowed locations",
+        "policyType": "Custom",
+        "mode": "Indexed",
+        "description": "특정 지역으로 리소스 생성 제한",
+        "metadata": {
+        "category": "mypolicy"
+        },
+        "parameters": {
+            "listOfAllowedLocations": {
+                    "type": "Array",
+                    "metadata": {
+                        "description": "Azure 지역",
+                        "strongType": "location",
+                        "displayName": "Allowed locations"
+                    },
+                    "defaultValue": [
+                        "koreacentral"
                     ]
-                },
-                "then": {
-                    "effect": "deny"
-                }
+            }
+        },
+        "policyRule": {
+            "if": {
+                "allOf": [
+                    {
+                        "field": "location",
+                        "notIn": "[parameters('listOfAllowedLocations')]"
+                    },
+                    {
+                        "field": "location",
+                        "notEquals": "global"
+                    },
+                    {
+                        "field": "type",
+                        "notEquals": "Microsoft.AzureActiveDirectory/b2cDirectories"
+                    }
+                ]
+            },
+            "then": {
+                "effect": "deny"
             }
         }
+    }
 }
