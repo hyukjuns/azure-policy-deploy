@@ -1,6 +1,7 @@
 # JSON Policy Files
 **/policies-verified/*
 **/policies-test/*
+**/policy-modify-effect/*
 
 # Local .terraform directories
 **/.terraform/*

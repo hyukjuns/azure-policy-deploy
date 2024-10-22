@@ -2,6 +2,8 @@
 
 ### Cheatsheets
 ```
+# Policy Scan
+az policy state trigger-scan
 
 # pathexpand : 경로 중 '~' 이 있다면  현재 사용자의 홈 디렉토리 경로로 변경
 > pathexpand("~/.ssh/id_rsa")
